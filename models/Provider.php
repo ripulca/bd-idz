@@ -73,4 +73,29 @@ class Provider extends DB
         }
         return true;
     }
+
+    public function updateProvider($id, $name, $phone, $city, $adderss){
+        try {
+            $proc = $this->pdo->prepare("UPDATE provider
+                                            SET provider_name = :provider_name, provider_phone= :provider_phone, provider_city = :provider_city, provider_adderss = :provider_adderss
+                                            WHERE provider_code = :provider_code");
+
+            $save_name = htmlspecialchars($name);
+            $save_adderss = htmlspecialchars($adderss);
+            $save_city = htmlspecialchars($city);
+            $save_phone = htmlspecialchars($phone);
+                    
+            $proc->bindValue(":provider_code" , $id);
+            $proc->bindValue(":provider_name" , $save_name);
+            $proc->bindValue(":provider_phone" , $save_phone);
+            $proc->bindValue(":provider_city" , $save_city);
+            $proc->bindValue(":provider_adderss" , $save_adderss);
+            
+            $proc->execute();
+        } catch (PDOException $e) {
+            echo "Ошибка обновления: " . $e->getMessage();
+            return false;
+        }
+        return true;
+    }
 }

@@ -74,4 +74,40 @@ class Provide extends DB
         }
         return true;
     }
+
+    public function updateProvideByProvider($provider_id, $meds_id, $amount){
+        try {
+            $proc = $this->pdo->prepare("UPDATE provide
+                                            SET medicine_code = :medicine_code, how_much_in_stock= :how_much_in_stock
+                                            WHERE provider_code = :provider_code");
+
+            $proc->bindValue(":provider_code" , $provider_id);
+            $proc->bindValue(":medicine_code" , $meds_id);
+            $proc->bindValue(":how_much_in_stock" , $amount);
+            
+            $proc->execute();
+        } catch (PDOException $e) {
+            echo "Ошибка обновления: " . $e->getMessage();
+            return false;
+        }
+        return true;
+    }
+
+    public function updateProvideByMedicine($id, $meds_id, $amount){
+        try {
+            $proc = $this->pdo->prepare("UPDATE provide
+                                            SET provider_code = :provider_code, how_much_in_stock= :how_much_in_stock
+                                            WHERE medicine_code = :medicine_code");
+
+            $proc->bindValue(":provider_code" , $provider_id);
+            $proc->bindValue(":medicine_code" , $meds_id);
+            $proc->bindValue(":how_much_in_stock" , $amount);
+            
+            $proc->execute();
+        } catch (PDOException $e) {
+            echo "Ошибка обновления: " . $e->getMessage();
+            return false;
+        }
+        return true;
+    }
 }

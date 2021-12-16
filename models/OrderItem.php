@@ -59,4 +59,25 @@ class Order_item extends DB
         }
         return true;
     }
+
+    public function updateOrderItem($id, $order_id, $medicine_id, $provider_id, $order_item_amount, $price){
+        try {
+            $proc = $this->pdo->prepare("UPDATE order_item
+                                            SET order_code = :order_code, medicine_code= :medicine_code, order_item_amount = :order_item_amount, order_item_price = :order_item_price, provider_code = :provider_code
+                                            WHERE order_item_code = :order_item_code");
+
+            $proc->bindValue(":order_item_code" , $id);
+            $proc->bindValue(":order_code" , $order_id);
+            $proc->bindValue(":medicine_code" , $medicine_id);
+            $proc->bindValue(":order_item_amount" , $order_item_amount);
+            $proc->bindValue(":order_item_price" , $price);
+            $proc->bindValue(":provider_code" , $provider_id);
+            
+            $proc->execute();
+        } catch (PDOException $e) {
+            echo "Ошибка обновления: " . $e->getMessage();
+            return false;
+        }
+        return true;
+    }
 }
