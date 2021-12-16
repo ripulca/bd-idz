@@ -7,13 +7,13 @@ class Doctor extends DB
     public function getAllDoctors(){
         $proc = $this->pdo->prepare("SELECT * FROM doctor");
         $proc->execute();
-        return $proc->fetch(PDO::FETCH_ASSOC);
+        return $proc;
     }
 
     public function getAlldoctorsAmount(){
         $proc = $this->pdo->prepare("SELECT COUNT(doctor_code) FROM doctor");
         $proc->execute();
-        return $proc->fetch();
+        return $proc();
     }
 
     public function getDoctorById($id){
@@ -23,7 +23,7 @@ class Doctor extends DB
 
         $proc->bindValue(1, $id, PDO::PARAM_INT);
         $proc->execute();
-        return $proc->fetch(PDO::FETCH_ASSOC);
+        return $proc;
     }
 
     public function getDoctorAmountOfOrders($id){
@@ -33,7 +33,7 @@ class Doctor extends DB
 
         $proc->bindValue(1, $id, PDO::PARAM_INT);
         $proc->execute();
-        return $proc->fetch(PDO::FETCH_ASSOC);
+        return $proc;
     }
 
     public function fireDoctor($id){
@@ -74,6 +74,36 @@ class Doctor extends DB
             $proc->execute();
         } catch (PDOException $e) {
             echo "Ошибка сохранения: " . $e->getMessage();
+            return false;
+        }
+        return true;
+    }
+
+    public function updateDoctor($id, $hospital_id, $name, $last_name, $surname, $post, $phone, $specialization){
+        try {
+            $proc = $this->pdo->prepare("UPDATE doctor
+                                            SET hospital_code = :hospital_code, doctor_name= :doctor_name, doctor_surname = :doctor_surname, doctor_last_name = :doctor_last_name, doctor_post = :doctor_post, doctor_phone = :doctor_phone, doctor_specialization = :doctor_specialization
+                                            WHERE doctor_code = :doctor_code");
+
+            $save_name = htmlspecialchars($name);
+            $save_last_name = htmlspecialchars($last_name);
+            $save_surname = htmlspecialchars($surname);
+            $save_post = htmlspecialchars($post);
+            $save_phone = htmlspecialchars($phone);
+            $save_specialization = htmlspecialchars($specialization);
+                    
+            $proc->bindValue(":doctor_code" , $id);
+            $proc->bindValue(":hospital_code" , $id);
+            $proc->bindValue(":doctor_name" , $save_name);
+            $proc->bindValue(":doctor_surname" , $save_last_name);
+            $proc->bindValue(":doctor_last_name" , $save_surname);
+            $proc->bindValue(":doctor_post" , $save_post);
+            $proc->bindValue(":doctor_phone" , $save_phone);
+            $proc->bindValue(":doctor_specialization" , $save_specialization);
+            
+            $proc->execute();
+        } catch (PDOException $e) {
+            echo "Ошибка обновления: " . $e->getMessage();
             return false;
         }
         return true;

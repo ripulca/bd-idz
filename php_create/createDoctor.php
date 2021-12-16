@@ -10,7 +10,7 @@
 </form>
 
 <?php
-    require_once "models/Doctor.php";
+    require_once "../models/Doctor.php";
 
     $id=hexdec(uniqid());
     $hospital_id=$_POST['hospital_id'];

@@ -1,6 +1,6 @@
 
 <?php
-    require_once "models/Hospital.php";
+    require_once "../models/Hospital.php";
 
     $obj = new Hospital();
     $objs = $obj->getAllHospitals();

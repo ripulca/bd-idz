@@ -8,7 +8,7 @@
 </form>
 
 <?php
-    require_once "models/Customer.php";
+    require_once "../models/Customer.php";
 
     $id=hexdec(uniqid());
     $name=$_POST['name'];

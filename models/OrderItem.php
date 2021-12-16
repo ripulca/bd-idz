@@ -7,13 +7,13 @@ class Order_item extends DB
     public function getAllOrderItems(){
         $proc = $this->pdo->prepare("SELECT * FROM order_item");
         $proc->execute();
-        return $proc->fetch(PDO::FETCH_ASSOC);
+        return $proc;
     }
 
     public function getAllOrder_itemsAmount(){
         $proc = $this->pdo->prepare("SELECT COUNT(order_item_code) FROM order_item");
         $proc->execute();
-        return $proc->fetch();
+        return $proc;
     }
 
     public function getOrderItemById($id){
@@ -23,7 +23,7 @@ class Order_item extends DB
 
         $proc->bindValue(1, $id, PDO::PARAM_INT);
         $proc->execute();
-        return $proc->fetch(PDO::FETCH_ASSOC);
+        return $proc;
     }
 
     public function fireOrderItem($id){

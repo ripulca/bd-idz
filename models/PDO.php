@@ -4,13 +4,13 @@
     {
         protected $pdo;
 
-        public function __construct($dbConfigPath)
+        public function __construct($dbConfigPath='../config/parameters.ini')
         {
             if (!($pdoConfig = parse_ini_file($dbConfigPath))) {
                 throw new Exception("Ошибка парсинга файла инициализации бд", 1);
             }
             try {
-                $this->pdo = new PDO('mysql:host='.$pdoConfig['host'].';dbname='.$pdoConfig['dbname'],
+                $this->pdo = new PDO('pgsql:host='.$pdoConfig['host'].';dbname='.$pdoConfig['dbname'],
                 $pdoConfig['login'], 
                 $pdoConfig['password']);
             } catch (PDOException $e) {

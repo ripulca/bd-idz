@@ -7,13 +7,13 @@ class Provider extends DB
     public function getAllProviders(){
         $proc = $this->pdo->prepare("SELECT * FROM provider");
         $proc->execute();
-        return $proc->fetch(PDO::FETCH_ASSOC);
+        return $proc;
     }
 
     public function getAllProvidersAmount(){
         $proc = $this->pdo->prepare("SELECT COUNT(provider_code) FROM provider");
         $proc->execute();
-        return $proc->fetch();
+        return $proc;
     }
 
     public function getProviderById($id){
@@ -23,7 +23,7 @@ class Provider extends DB
 
         $proc->bindValue(1, $id, PDO::PARAM_INT);
         $proc->execute();
-        return $proc->fetch(PDO::FETCH_ASSOC);
+        return $proc;
     }
 
     public function getProviderAmountOfMeds($id){
@@ -33,7 +33,7 @@ class Provider extends DB
 
         $proc->bindValue(1, $id, PDO::PARAM_INT);
         $proc->execute();
-        return $proc->fetch(PDO::FETCH_ASSOC);
+        return $proc;
     }
 
     public function fireProvider($id){

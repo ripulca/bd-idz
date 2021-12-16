@@ -1,5 +1,5 @@
 <?php
-require_once "models/PDO.php"
+require_once "../models/PDO.php"
 $dbConfigPath='config/parameters.ini';
 
 if(isset($_POST['login'])&&isset($_POST['password'])){
@@ -10,6 +10,6 @@ if(isset($_POST['login'])&&isset($_POST['password'])){
     $password=$_POST['password'];
 
     if($login===$pdoConfig['login'] && $password===$pdoConfig['password']){
-        $pdo_sign_in=new PDO($dbConfigPath)
+        $pdo_sign_in=new PDO()
     }
 }

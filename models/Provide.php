@@ -7,7 +7,7 @@ class Provide extends DB
     public function getAllProvide(){
         $proc = $this->pdo->prepare("SELECT * FROM provider");
         $proc->execute();
-        return $proc->fetch(PDO::FETCH_ASSOC);
+        return $proc;
     }
 
     public function getProvideByProviderId($id){
@@ -17,7 +17,7 @@ class Provide extends DB
 
         $proc->bindValue(1, $id, PDO::PARAM_INT);
         $proc->execute();
-        return $proc->fetch(PDO::FETCH_ASSOC);
+        return $proc;
     }
 
     public function getProvideByMedicineId($id){
@@ -27,7 +27,7 @@ class Provide extends DB
 
         $proc->bindValue(1, $id, PDO::PARAM_INT);
         $proc->execute();
-        return $proc->fetch(PDO::FETCH_ASSOC);
+        return $proc;
     }
 
     public function fireProvideByProviderId($id){

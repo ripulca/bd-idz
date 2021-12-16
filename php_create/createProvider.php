@@ -7,7 +7,7 @@
 </form>
 
 <?php
-    require_once "models/Provider.php";
+    require_once "../models/Provider.php";
 
     $id=hexdec(uniqid());
     $name=$_POST['name'];

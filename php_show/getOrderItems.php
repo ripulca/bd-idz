@@ -1,6 +1,6 @@
 
 <?php
-    require_once "models/OrderItem.php";
+    require_once "../models/OrderItem.php";
 
     $obj = new Order_item();
     $objs = $obj->getAllOrderItems();

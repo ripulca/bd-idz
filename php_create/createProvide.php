@@ -5,7 +5,7 @@
 </form>
 
 <?php
-    require_once "models/Provide.php";
+    require_once "../models/Provide.php";
 
     $id=hexdec(uniqid());
     $meds_id=$_POST['meds_id'];

@@ -7,7 +7,7 @@
 </form>
 
 <?php
-    require_once "models/Courier.php";
+    require_once "../models/Courier.php";
 
     $id=hexdec(uniqid());
     $name=$_POST['name'];

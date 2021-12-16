@@ -7,13 +7,13 @@ class Hospital extends DB
     public function getAllHospitals(){
         $proc = $this->pdo->prepare("SELECT * FROM hospital");
         $proc->execute();
-        return $proc->fetch(PDO::FETCH_ASSOC);
+        return $proc;
     }
 
     public function getAllHospitalsAmount(){
         $proc = $this->pdo->prepare("SELECT COUNT(hospital_code) FROM hospital");
         $proc->execute();
-        return $proc->fetch();
+        return $proc();
     }
 
     public function getHospitalById($id){
@@ -23,7 +23,7 @@ class Hospital extends DB
 
         $proc->bindValue(1, $id, PDO::PARAM_INT);
         $proc->execute();
-        return $proc->fetch(PDO::FETCH_ASSOC);
+        return $proc;
     }
 
     public function getHospitalAmountOfDoctors($id){
@@ -33,7 +33,7 @@ class Hospital extends DB
 
         $proc->bindValue(1, $id, PDO::PARAM_INT);
         $proc->execute();
-        return $proc->fetch(PDO::FETCH_ASSOC);
+        return $proc;
     }
 
     public function fireHospital($id){
@@ -67,6 +67,29 @@ class Hospital extends DB
             $proc->execute();
         } catch (PDOException $e) {
             echo "Ошибка сохранения: " . $e->getMessage();
+            return false;
+        }
+        return true;
+    }
+
+    public function updateHospital($id, $name, $address, $city){
+        try {
+            $proc = $this->pdo->prepare("UPDATE hospital
+                                            SET hospital_name = :hospital_name, hospital_address= :hospital_address, hospital_city = :hospital_city
+                                            WHERE hospital_code = :hospital_code");
+
+            $save_name = htmlspecialchars($name);
+            $save_address = htmlspecialchars($address);
+            $save_city = htmlspecialchars($city);
+
+            $proc->bindValue(":hospital_code" , $id);
+            $proc->bindValue(":hospital_name" , $save_name);
+            $proc->bindValue(":hospital_address" , $save_address);
+            $proc->bindValue(":hospital_city" , $save_city);
+            
+            $proc->execute();
+        } catch (PDOException $e) {
+            echo "Ошибка обновления: " . $e->getMessage();
             return false;
         }
         return true;

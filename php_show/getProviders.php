@@ -1,6 +1,6 @@
 
 <?php
-    require_once "models/Provider.php";
+    require_once "../models/Provider.php";
 
     $obj = new Provider();
     $objs = $obj->getAllProviders();

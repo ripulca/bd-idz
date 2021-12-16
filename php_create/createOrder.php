@@ -10,7 +10,7 @@
 </form>
 
 <?php
-    require_once "models/Order.php";
+    require_once "../models/Order.php";
 
     $id=hexdec(uniqid());
     $customer_id=$_POST['customer_id'];

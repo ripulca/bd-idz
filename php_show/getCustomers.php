@@ -1,6 +1,6 @@
 
 <?php
-    require_once "models/Customer.php";
+    require_once "../models/Customer.php";
 
     $obj = new Customer();
     $objs = $obj->getAllCustomers();

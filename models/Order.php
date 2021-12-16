@@ -7,13 +7,13 @@ class Order extends DB
     public function getAllOrders(){
         $proc = $this->pdo->prepare('SELECT * FROM "order"');
         $proc->execute();
-        return $proc->fetch(PDO::FETCH_ASSOC);
+        return $proc;
     }
 
     public function getAllOrdersAmount(){
         $proc = $this->pdo->prepare('SELECT COUNT(order_code) FROM "order"');
         $proc->execute();
-        return $proc->fetch();
+        return $proc;
     }
 
     public function getOrderById($id){
@@ -23,7 +23,7 @@ class Order extends DB
 
         $proc->bindValue(1, $id, PDO::PARAM_INT);
         $proc->execute();
-        return $proc->fetch(PDO::FETCH_ASSOC);
+        return $proc;
     }
 
     public function getOrderAmountOfOrderItems($id){
@@ -33,7 +33,7 @@ class Order extends DB
 
         $proc->bindValue(1, $id, PDO::PARAM_INT);
         $proc->execute();
-        return $proc->fetch(PDO::FETCH_ASSOC);
+        return $proc;
     }
 
     public function fireOrder($id){
@@ -69,6 +69,31 @@ class Order extends DB
             $proc->execute();
         } catch (PDOException $e) {
             echo "Ошибка сохранения: " . $e->getMessage();
+            return false;
+        }
+        return true;
+    }
+
+    public function updateOrder($id, $customer_id, $doctor_id, $courier_id, $end_date, $pay_date, $discount, $delivery_address){
+        try {
+            $proc = $this->pdo->prepare('UPDATE "order"
+                                            SET customer_code = :customer_code, doctor_code= :doctor_code, courier_code = :courier_code, order_end_date = :order_end_date, order_pay_date = :order_pay_date, order_discount = :order_discount, order_delivery_address = :order_delivery_address
+                                            WHERE order_code = :order_code');
+
+            $save_delivery_address = htmlspecialchars($delivery_address);
+                    
+            $proc->bindValue(":order_code" , $id);
+            $proc->bindValue(":customer_code" , $customer_id);
+            $proc->bindValue(":doctor_code" , $doctor_id);
+            $proc->bindValue(":courier_code" , $courier_id);
+            $proc->bindValue(":order_end_date" , $end_date);
+            $proc->bindValue(":order_pay_date" , $pay_date);
+            $proc->bindValue(":order_discount" , $discount);
+            $proc->bindValue(":order_delivery_address" , $save_delivery_address);
+            
+            $proc->execute();
+        } catch (PDOException $e) {
+            echo "Ошибка обновления: " . $e->getMessage();
             return false;
         }
         return true;

@@ -11,7 +11,7 @@
 </form>
 
 <?php
-    require_once "models/Medicine.php";
+    require_once "../models/Medicine.php";
 
     $id=hexdec(uniqid());
     $name=$_POST['name'];

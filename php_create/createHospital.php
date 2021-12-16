@@ -6,7 +6,7 @@
 </form>
 
 <?php
-    require_once "models/Hospital.php";
+    require_once "../models/Hospital.php";
 
     $id=hexdec(uniqid());
     $name=$_POST['name'];
