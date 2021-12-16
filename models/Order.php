@@ -28,7 +28,7 @@ class Order extends DB
 
     public function getOrderAmountOfOrderItems($id){
         $proc = $this->pdo->prepare("SELECT COUNT(*) 
-                                    FROM "order"
+                                    FROM "order_item"
                                     WHERE order_code=?; ");
 
         $proc->bindValue(1, $id, PDO::PARAM_INT);
@@ -50,21 +50,21 @@ class Order extends DB
         return true;
     }
 
-    public function addOrder($id, $name, $last_name, $surname, $city){
+    public function addOrder($id, $customer_id, $doctor_id, $courier_id, $end_date, $pay_date, $discount, $delivery_address){
         try {
-            $proc = $this->pdo->prepare("INSERT INTO order (order_code, order_name, order_surname, order_last_name, order_city) 
-                                            VALUES (:order_code, :order_name, :order_surname, :order_last_name, :order_city); ");
+            $proc = $this->pdo->prepare("INSERT INTO order (order_code, customer_code, doctor_code, courier_code, order_end_date, order_pay_date, order_discount, order_delivery_address) 
+                                            VALUES (:order_code, :customer_code, :doctor_code, :courier_code, :order_end_date, :order_pay_date, :order_discount, :order_delivery_address); ");
 
-            $save_name = htmlspecialchars($name);
-            $save_last_name = htmlspecialchars($last_name);
-            $save_surname = htmlspecialchars($surname);
-            $save_city = htmlspecialchars($city);
+            $save_delivery_address = htmlspecialchars($delivery_address);
 
             $proc->bindValue(":order_code" , $id);
-            $proc->bindValue(":order_name" , $save_name);
-            $proc->bindValue(":order_surname" , $save_last_name);
-            $proc->bindValue(":order_last_name" , $save_surname);
-            $proc->bindValue(":order_city" , $save_city);
+            $proc->bindValue(":customer_code" , $customer_id);
+            $proc->bindValue(":doctor_code" , $doctor_id);
+            $proc->bindValue(":courier_code" , $courier_id);
+            $proc->bindValue(":order_end_date" , $end_date);
+            $proc->bindValue(":order_pay_date" , $pay_date);
+            $proc->bindValue(":order_discount" , $discount);
+            $proc->bindValue(":order_delivery_address" , $save_delivery_address);
             
             $proc->execute();
         } catch (PDOException $e) {

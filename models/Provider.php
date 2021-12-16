@@ -28,7 +28,7 @@ class Provider extends DB
 
     public function getProviderAmountOfMeds($id){
         $proc = $this->pdo->prepare("SELECT COUNT(*) 
-                                    FROM "order"
+                                    FROM provide
                                     WHERE provider_code=?; ");
 
         $proc->bindValue(1, $id, PDO::PARAM_INT);
@@ -50,21 +50,21 @@ class Provider extends DB
         return true;
     }
 
-    public function addProvider($id, $name, $last_name, $surname, $city){
+    public function addProvider($id, $name, $phone, $city, $adderss){
         try {
-            $proc = $this->pdo->prepare("INSERT INTO provider (provider_code, provider_name, provider_surname, provider_last_name, provider_city) 
-                                            VALUES (:provider_code, :provider_name, :provider_surname, :provider_last_name, :provider_city); ");
+            $proc = $this->pdo->prepare("INSERT INTO provider (provider_code, provider_name, provider_phone, provider_city, provider_adderss) 
+                                            VALUES (:provider_code, :provider_name, :provider_phone, :provider_city, :provider_adderss); ");
 
             $save_name = htmlspecialchars($name);
-            $save_last_name = htmlspecialchars($last_name);
-            $save_surname = htmlspecialchars($surname);
+            $save_adderss = htmlspecialchars($adderss);
             $save_city = htmlspecialchars($city);
+            $save_phone = htmlspecialchars($phone);
 
             $proc->bindValue(":provider_code" , $id);
             $proc->bindValue(":provider_name" , $save_name);
-            $proc->bindValue(":provider_surname" , $save_last_name);
-            $proc->bindValue(":provider_last_name" , $save_surname);
+            $proc->bindValue(":provider_phone" , $save_phone);
             $proc->bindValue(":provider_city" , $save_city);
+            $proc->bindValue(":provider_adderss" , $save_adderss);
             
             $proc->execute();
         } catch (PDOException $e) {
