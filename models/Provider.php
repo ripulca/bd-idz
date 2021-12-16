@@ -50,6 +50,23 @@ class Provider extends DB
         return true;
     }
 
+    public function provideNewMedicine($id, $meds_id, $amount){
+        try {
+            $proc = $this->pdo->prepare("INSERT INTO provide (provider_code, medicine_code, how_much_in_stock) 
+                                            VALUES (:provider_code, :medicine_code, :how_much_in_stock); ");
+
+            $proc->bindValue(":provider_code" , $id);
+            $proc->bindValue(":medicine_code" , $meds_id);
+            $proc->bindValue(":how_much_in_stock" , $amount);
+            
+            $proc->execute();
+        } catch (PDOException $e) {
+            echo "Ошибка сохранения: " . $e->getMessage();
+            return false;
+        }
+        return true;
+    }
+
     public function addProvider($id, $name, $phone, $city, $adderss){
         try {
             $proc = $this->pdo->prepare("INSERT INTO provider (provider_code, provider_name, provider_phone, provider_city, provider_adderss) 
