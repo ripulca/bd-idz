@@ -1,41 +1,18 @@
-<?php echo
+<?php
 require_once "PDO.php";
 
 class Report extends DB
 {
     public function first_report(){
-        $proc = $this->pdo->prepare('SELECT R.reader_lastname, R.reader_name, R.reader_patronimic, O.order_create_date, L.librarian_lastname,L.librarian_name, L.librarian_patronimic 
+        $proc = $this->pdo->prepare('SELECT * 
                                     FROM "order" O
-                                    INNER JOIN "reader" R ON O.reader_id = R.reader_id
-                                    INNER JOIN "librarian" L ON O.librarian_id = L.librarian_id
-                                    ORDER BY O.order_create_date');
+                                    INNER JOIN customer C ON O.customer_code = C.customer_code
+                                    ORDER BY O.customer_code');
         $proc->execute();
         return $proc;
     }
 
     public function second_report(){
-        $proc = $this->pdo->prepare('SELECT R.reader_lastname, R.reader_name, R.reader_patronimic, R.reader_address , O.order_create_date, O.order_obtain_method, L.librarian_lastname,L.librarian_name, L.librarian_patronimic, LB.library_name, LB.library_address
-                                    FROM "order" O
-                                    INNER JOIN "reader" R ON O.reader_id = R.reader_id
-                                    INNER JOIN "librarian" L ON O.librarian_id = L.librarian_id
-                                    INNER JOIN "library" LB ON O.library_id = LB.library_id
-                                    ORDER BY O.order_create_date');
-        $proc->execute();
-        return $proc;
-    }
-
-    public function third_report(){
-        $proc = $this->pdo->prepare('SELECT R.reader_lastname, R.reader_name, R.reader_patronimic, R.reader_address , O.order_create_date, O.order_obtain_method, L.librarian_lastname,L.librarian_name, L.librarian_patronimic, LB.library_name, LB.library_address
-                                    FROM "order" O
-                                    INNER JOIN "reader" R ON O.reader_id = R.reader_id
-                                    INNER JOIN "librarian" L ON O.librarian_id = L.librarian_id
-                                    INNER JOIN "library" LB ON O.library_id = LB.library_id
-                                    ORDER BY O.order_create_date');
-        $proc->execute();
-        return $proc;
-    }
-
-    public function fourth_report(){
         $proc = $this->pdo->prepare('SELECT R.reader_lastname, R.reader_name, R.reader_patronimic, R.reader_address , O.order_create_date, O.order_obtain_method, L.librarian_lastname,L.librarian_name, L.librarian_patronimic, LB.library_name, LB.library_address
                                     FROM "order" O
                                     INNER JOIN "reader" R ON O.reader_id = R.reader_id
@@ -53,3 +30,5 @@ class Report extends DB
         return $proc;
     }
 }
+
+?>
