@@ -11,7 +11,7 @@
     require_once "../models/Customer.php";
 
     $id=$_POST['id'];
-    $id_new=hexdec(uniqid_new());
+    $id_new=(int)uniqid();
     $name=$_POST['name'];
     $surname=$_POST['surname'];
     $last_name=$_POST['last_name'];

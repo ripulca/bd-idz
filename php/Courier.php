@@ -9,12 +9,15 @@
 <?php
     require_once "../models/Courier.php";
 
-    $id_new=hexdec(uniqid_new());
+    $id=$_POST['id'];
+    $id_new=(int)uniqid();
     $name=$_POST['name'];
     $surname=$_POST['surname'];
     $last_name=$_POST['last_name'];
     $city=$_POST['city'];
 
     $obj = new Courier();
-    $objs = $obj->addCourier($id_new, $name, $last_name, $surname, $city);
+    // $objs = $obj->addCourier($id_new, $name, $last_name, $surname, $city);
 ?>
+<input type="button" value="Создать" onclick="<?php $obj->addCourier($id_new, $name, $last_name, $surname, $city);?>"></input>
+<input type="button" value="Изменить" onclick="<?php $obj->updateCourier($id, $name, $last_name, $surname, $city);?>"></input>
