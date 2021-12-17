@@ -13,7 +13,7 @@ class Customer extends DB
     public function getAllCustomersAmount(){
         $proc = $this->pdo->prepare("SELECT COUNT(customer_code) FROM customer");
         $proc->execute();
-        return $proc();
+        return $proc;
     }
 
     public function getCustomerById($id){
@@ -27,9 +27,9 @@ class Customer extends DB
     }
 
     public function getCustomerAmountOfOrders($id){
-        $proc = $this->pdo->prepare("SELECT COUNT(*) 
+        $proc = $this->pdo->prepare('SELECT COUNT(*) 
                                     FROM "order"
-                                    WHERE customer_code=?; ");
+                                    WHERE customer_code=?; ');
 
         $proc->bindValue(1, $id, PDO::PARAM_INT);
         $proc->execute();

@@ -27,9 +27,9 @@ class Doctor extends DB
     }
 
     public function getDoctorAmountOfOrders($id){
-        $proc = $this->pdo->prepare("SELECT COUNT(*) 
+        $proc = $this->pdo->prepare('SELECT COUNT(*) 
                                     FROM "order"
-                                    WHERE doctor_code=?; ");
+                                    WHERE doctor_code=?; ');
 
         $proc->bindValue(1, $id, PDO::PARAM_INT);
         $proc->execute();

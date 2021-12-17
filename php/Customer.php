@@ -10,7 +10,8 @@
 <?php
     require_once "../models/Customer.php";
 
-    $id=hexdec(uniqid());
+    $id=$_POST['id'];
+    $id_new=hexdec(uniqid_new());
     $name=$_POST['name'];
     $surname=$_POST['surname'];
     $last_name=$_POST['last_name'];
@@ -18,5 +19,9 @@
     $phone=$_POST['phone'];
 
     $obj = new Customer();
-    $objs = $obj->updateCustomer($id, $name, $last_name, $surname, $city, $phone);
+
+    // $objs = $obj->addCustomer($id_new, $name, $last_name, $surname, $city, $phone);
 ?>
+
+<input type="button" value="Создать" onclick="<?php $obj->addCustomer($id_new, $name, $last_name, $surname, $city, $phone);?>"></input>
+<input type="button" value="Изменить" onclick="<?php $obj->updateCustomer($id, $name, $last_name, $surname, $city, $phone);?>"></input>

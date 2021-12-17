@@ -11,10 +11,11 @@
 </head>
     <body>
         <div>
-            
+            <form method='POST' action="show_btns.php">
+                Логин: <input type='text' name='login' required/><br><br>
+                Пароль: <input type='text' name='password' required/><br><br>
+                <button type="submit">Send</button><br>
+            </form><br>
         </div>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="resources/js/buttons.js"></script>
-    <script src="resources/js/modal_win_buttons.js"></script>
     </body>
 </html>
